@@ -109,5 +109,37 @@ print("Mean Squared Error:", dt_mse_tuned)
 print("Root Mean Squared Error:", dt_rmse_tuned)
 print("R-squared:", dt_r2_tuned)
 
+
+"""
+Model Training: Untuned Decision Tree
+"""
+
+# Create and train the untuned Decision Tree model
+untuned_decision_tree_model = DecisionTreeRegressor()
+untuned_decision_tree_model.fit(X_train, Y_train)
+untuned_dt_pred = untuned_decision_tree_model.predict(X_test)
+
+# Evaluate the untuned model on the test set
+untuned_dt_mae = mean_absolute_error(Y_test, untuned_dt_pred)
+untuned_dt_mse = mean_squared_error(Y_test, untuned_dt_pred)
+untuned_dt_rmse = np.sqrt(untuned_dt_mse)
+untuned_dt_r2 = r2_score(Y_test, untuned_dt_pred)
+
+# Print Metrics for Untuned Decision Tree
+print("\nUntuned Decision Tree Metrics:")
+print("Mean Absolute Error:", untuned_dt_mae)
+print("Mean Squared Error:", untuned_dt_mse)
+print("Root Mean Squared Error:", untuned_dt_rmse)
+print("R-squared:", untuned_dt_r2)
+
+# Save the untuned model to a file
+joblib.dump(untuned_decision_tree_model, 'calories_untuned_model.pkl')
+
+# Compare Metrics between Tuned and Untuned Decision Tree
+print("\nComparison of Tuned and Untuned Decision Tree Models:")
+print("Tuned Decision Tree RMSE:", dt_rmse_tuned)
+print("Untuned Decision Tree RMSE:", untuned_dt_rmse)
+
 # Save the tuned model to a file
 joblib.dump(best_decision_tree_model, 'calories_tuned_model.pkl')
+
