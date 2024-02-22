@@ -184,3 +184,46 @@ class CaloriesPredictor(QMainWindow):
 
         # Update the graph with the prediction
         self.updateGraph(duration, predicted_calories)
+
+    def updateGraph(self, duration, predicted_calories):
+            if self.durations is not None and self.Y_test is not None and self.results_df_tuned is not None:
+                # Create the matplotlib figure and axes
+                fig, ax = plt.subplots(figsize=(10, 6))
+
+                # Scatter plot for actual calories
+                ax.scatter(self.durations, self.Y_test, label='Actual Calories', alpha=0.4)
+
+                # Line plot for tuned predictions
+                ax.plot(self.results_df_tuned['Duration'], self.results_df_tuned['Predicted Calories'],
+                        label='Predicted Calories', color='red', linewidth=1.7)
+
+                # Plot the point for the current prediction
+                ax.scatter([duration], [predicted_calories], color='gold', s=150, marker='*',
+                           label='Current Prediction')
+
+                # Set labels, title, grid, etc.
+                ax.set_title('Actual vs. Predicted Calories Over Duration')
+                ax.set_xlabel('Duration')
+                ax.set_ylabel('Calories')
+                ax.legend()
+                ax.grid(True)
+
+                # Create a canvas to display the plot
+                canvas = FigureCanvas(fig)
+
+                # Clear the previous graph and add the new one
+                self.clearGraphArea()
+                self.graphTabs.addTab(canvas, "Calories Plot")
+
+    def clearGraphArea(self):
+        # Clear any existing graphs from the graph area
+        while self.graphTabs.count() > 0:
+            widget = self.graphTabs.widget(0)
+            self.graphTabs.removeTab(0)
+            widget.deleteLater()
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = CaloriesPredictor()
+    window.show()
+    sys.exit(app.exec())
