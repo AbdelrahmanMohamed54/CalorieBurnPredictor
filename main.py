@@ -143,3 +143,51 @@ print("Untuned Decision Tree RMSE:", untuned_dt_rmse)
 # Save the tuned model to a file
 joblib.dump(best_decision_tree_model, 'calories_tuned_model.pkl')
 
+# Scatter plot of Duration vs. Calories with the model predictions
+
+# Assuming 'Duration' is one of the features in X_test
+# If 'Duration' is not present, please replace it with the correct feature name
+durations = X_test['Duration']
+
+# Predict calories for the given durations using the tuned model
+predictions_tuned = best_decision_tree_model.predict(X_test)
+
+# Create a DataFrame with 'Duration' and 'Predictions'
+results_df_tuned = pd.DataFrame({'Duration': durations, 'Predicted Calories': predictions_tuned})
+
+# Sort by 'Duration' for a smoother line plot
+results_df_tuned.sort_values('Duration', inplace=True)
+
+
+class CaloriePredictorModel:
+    def __init__(self):
+        # Load the model here
+        self.model = joblib.load('calories_tuned_model.pkl')
+
+    def predict(self, input_data):
+        # Convert input_data to a DataFrame
+        # Ensure the column names and order match those expected by the model
+        df = pd.DataFrame([input_data], columns=['Gender', 'Height', 'Weight', 'Duration', 'Heart_Rate'])  # Add other necessary columns
+
+        # If your model uses any derived or interaction features (like 'Weight_Duration_Interaction'), compute them here
+        df['Weight_Duration_Interaction'] = df['Weight'] * df['Duration']
+
+        # Perform prediction
+        result = self.model.predict(df)
+        return result[0]  # Assuming the result is a single value
+
+    def get_plotting_data(self):
+        # Assuming 'durations', 'Y_test', and 'results_df_tuned' are available here
+        return durations, Y_test, results_df_tuned
+
+
+# Scatter plot
+plt.figure(figsize=(10, 6))
+plt.scatter(durations, Y_test, label='Actual Calories', alpha=0.5)
+plt.plot(results_df_tuned['Duration'], results_df_tuned['Predicted Calories'], label='Predicted Calories', color='red', linewidth=2)
+plt.title('Actual vs. Predicted Calories Over Duration')
+plt.xlabel('Duration')
+plt.ylabel('Calories')
+plt.legend()
+plt.grid(True)
+plt.show()
