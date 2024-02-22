@@ -29,3 +29,17 @@ correlation = calories_data.corr(numeric_only=True)
 calories_data.replace({"Gender":{'male':0,'female':1}} , inplace=True)
 
 calories_data.head()
+
+"""Separating features and target"""
+
+# Interaction term: Weight * Duration
+calories_data['Weight_Duration_Interaction'] = calories_data['Weight'] * calories_data['Duration']
+
+features_to_use = ['Gender', 'Height', 'Weight', 'Duration', 'Heart_Rate', 'Weight_Duration_Interaction']
+X = calories_data[features_to_use]
+Y = calories_data['Calories']
+
+print(X)
+
+print(Y)
+
