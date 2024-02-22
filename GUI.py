@@ -94,4 +94,18 @@ class CaloriesPredictor(QMainWindow):
         gridLayout.addWidget(self.predictButton, 5, 0, 1, 3)  # Span across three columns
         self.predictButton.clicked.connect(self.predictCalories)
 
+        # Create a vertical layout for graph and prediction result
+        graphAndResultLayout = QVBoxLayout()
+
+        # Graph Area
+        self.graphTabs = QTabWidget()
+        graphAndResultLayout.addWidget(self.graphTabs)  # Add graph to the vertical layout
+
+        # Label for Displaying Predicted Calories
+        self.predictionResultLabel = QLabel("Predicted Calories: ")
+        graphAndResultLayout.addWidget(self.predictionResultLabel)  # Add label below the graph
+        graphAndResultLayout.setAlignment(self.predictionResultLabel, Qt.AlignmentFlag.AlignCenter)  # Center the label
+
+        # Add the vertical layout to the grid
+        gridLayout.addLayout(graphAndResultLayout, 0, 3, 6, 1)  # Span 6 rows and 1 column
 
