@@ -52,3 +52,31 @@ print(X)
 
 print(Y)
 
+
+"""
+Model Training
+"""
+
+# Hyperparameter grid
+param_grid = {
+    'max_depth': [None, 10, 20, 30],
+    'min_samples_split': [2, 5, 10],
+    'min_samples_leaf': [1, 2, 4],
+    'max_features': ['sqrt', 'log2', None]  # Adjusted to valid options
+}
+
+# Decision Tree model with hyperparameter tuning
+decision_tree_model = DecisionTreeRegressor()
+grid_search = GridSearchCV(decision_tree_model, param_grid, cv=5, scoring='neg_mean_squared_error')
+grid_search.fit(X_train, Y_train)
+
+# Get the best model from the search
+best_decision_tree_model = grid_search.best_estimator_
+
+# Use the best model for predictions
+dt_pred_tuned = best_decision_tree_model.predict(X_test)
+dt_rmse_tuned = np.sqrt(mean_squared_error(Y_test, dt_pred_tuned))
+
+# Perform 5-fold cross-validation for the tuned Decision Tree Model
+dt_cv_scores_tuned = cross_val_score(best_decision_tree_model, X, Y, cv=5, scoring='neg_mean_squared_error')
+dt_cv_rmse_scores_tuned = np.sqrt(-dt_cv_scores_tuned)
