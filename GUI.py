@@ -22,3 +22,9 @@ class CaloriesPredictor(QMainWindow):
         # Main Window Setup
         self.setWindowTitle("Calculate Calories")
         self.setGeometry(100, 100, 1200, 600)  # x, y, width, height
+
+        # Central Widget and Layout
+        centralWidget = QWidget()
+        self.setCentralWidget(centralWidget)
+        gridLayout = QGridLayout(centralWidget)
+
