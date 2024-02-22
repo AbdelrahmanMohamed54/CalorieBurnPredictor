@@ -80,3 +80,14 @@ dt_rmse_tuned = np.sqrt(mean_squared_error(Y_test, dt_pred_tuned))
 # Perform 5-fold cross-validation for the tuned Decision Tree Model
 dt_cv_scores_tuned = cross_val_score(best_decision_tree_model, X, Y, cv=5, scoring='neg_mean_squared_error')
 dt_cv_rmse_scores_tuned = np.sqrt(-dt_cv_scores_tuned)
+
+# Feature Importance Plot for Tuned Decision Tree
+feature_importance_tuned = pd.DataFrame({'Feature': X.columns, 'Importance': best_decision_tree_model.feature_importances_})
+feature_importance_tuned = feature_importance_tuned.sort_values(by='Importance', ascending=False)
+
+plt.figure(figsize=(10, 6))
+sns.barplot(x='Importance', y='Feature', data=feature_importance_tuned, palette='viridis')
+plt.title('Tuned Decision Tree: Feature Importance')
+plt.xlabel('Importance')
+plt.ylabel('Feature')
+plt.show()
