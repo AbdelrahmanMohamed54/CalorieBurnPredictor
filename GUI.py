@@ -109,3 +109,8 @@ class CaloriesPredictor(QMainWindow):
         # Add the vertical layout to the grid
         gridLayout.addLayout(graphAndResultLayout, 0, 3, 6, 1)  # Span 6 rows and 1 column
 
+        # Theme Selection ComboBox
+        self.themeComboBox = QComboBox()
+        self.themeComboBox.addItems(["Light Mode", "Dark Mode", "High Contrast"])
+        self.themeComboBox.currentTextChanged.connect(self.applyStyles)  # Connect to applyStyles
+        gridLayout.addWidget(self.themeComboBox, 7, 0, 1, 4)
