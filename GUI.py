@@ -114,3 +114,46 @@ class CaloriesPredictor(QMainWindow):
         self.themeComboBox.addItems(["Light Mode", "Dark Mode", "High Contrast"])
         self.themeComboBox.currentTextChanged.connect(self.applyStyles)  # Connect to applyStyles
         gridLayout.addWidget(self.themeComboBox, 7, 0, 1, 4)
+
+    def defineStyleSheets(self):
+        self.lightStyleSheet = """
+
+        """
+
+        self.darkStyleSheet = """
+            QWidget {
+                background-color: #424242;
+                color: #E0E0E0;
+            }
+            QPushButton {
+                background-color: #616161;
+                border: 1px solid #757575;
+            }
+            QPushButton:hover {
+                background-color: #757575;
+            }
+        """
+
+        self.highContrastStyleSheet = """
+            QWidget {
+                background-color: #000000;
+                color: #FFFFFF;
+            }
+            QPushButton {
+                background-color: #FFFFFF;
+                color: #000000;
+                border: 2px solid #FFFFFF;
+            }
+            QPushButton:hover {
+                background-color: #E0E0E0;
+                color: #000000;
+            }
+        """
+
+    def applyStyles(self, theme):
+        if theme == "Light Mode":
+            self.setStyleSheet(self.lightStyleSheet)
+        elif theme == "Dark Mode":
+            self.setStyleSheet(self.darkStyleSheet)
+        elif theme == "High Contrast":
+            self.setStyleSheet(self.highContrastStyleSheet)
