@@ -17,3 +17,8 @@ class CaloriesPredictor(QMainWindow):
         self.defineStyleSheets()
         self.model = CaloriePredictorModel()
         self.durations, self.Y_test, self.results_df_tuned = self.model.get_plotting_data()
+
+    def initUI(self):
+        # Main Window Setup
+        self.setWindowTitle("Calculate Calories")
+        self.setGeometry(100, 100, 1200, 600)  # x, y, width, height
