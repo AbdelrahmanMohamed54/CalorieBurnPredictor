@@ -28,3 +28,70 @@ class CaloriesPredictor(QMainWindow):
         self.setCentralWidget(centralWidget)
         gridLayout = QGridLayout(centralWidget)
 
+        # Gender Selection - QComboBox
+        self.genderComboBox = QComboBox()
+        self.genderComboBox.addItems(["Male", "Female"])
+        gridLayout.addWidget(self.genderComboBox, 0, 0)
+
+        # Weight Input
+        self.weightLabel = QLabel("Weight (kg)")
+        self.weightSlider = QSlider(Qt.Orientation.Horizontal)
+        self.weightSpinBox = QSpinBox()
+        self.weightSlider.setMinimum(30)
+        self.weightSlider.setMaximum(200)
+        self.weightSpinBox.setMinimum(30)
+        self.weightSpinBox.setMaximum(200)
+        self.weightSlider.valueChanged.connect(self.weightSpinBox.setValue)
+        self.weightSpinBox.valueChanged.connect(self.weightSlider.setValue)
+        gridLayout.addWidget(self.weightLabel, 1, 0)
+        gridLayout.addWidget(self.weightSlider, 1, 1)
+        gridLayout.addWidget(self.weightSpinBox, 1, 2)
+
+        # Height Input
+        self.heightLabel = QLabel("Height (cm)")
+        self.heightSlider = QSlider(Qt.Orientation.Horizontal)
+        self.heightSpinBox = QSpinBox()
+        self.heightSlider.setMinimum(100)
+        self.heightSlider.setMaximum(250)
+        self.heightSpinBox.setMinimum(100)
+        self.heightSpinBox.setMaximum(250)
+        self.heightSlider.valueChanged.connect(self.heightSpinBox.setValue)
+        self.heightSpinBox.valueChanged.connect(self.heightSlider.setValue)
+        gridLayout.addWidget(self.heightLabel, 2, 0)
+        gridLayout.addWidget(self.heightSlider, 2, 1)
+        gridLayout.addWidget(self.heightSpinBox, 2, 2)
+
+        # Duration Input
+        self.durationLabel = QLabel("Duration (min)")
+        self.durationSlider = QSlider(Qt.Orientation.Horizontal)
+        self.durationSpinBox = QSpinBox()
+        self.durationSlider.setMinimum(0)
+        self.durationSlider.setMaximum(30)
+        self.durationSpinBox.setMinimum(0)
+        self.durationSpinBox.setMaximum(30)
+        self.durationSlider.valueChanged.connect(self.durationSpinBox.setValue)
+        self.durationSpinBox.valueChanged.connect(self.durationSlider.setValue)
+        gridLayout.addWidget(self.durationLabel, 3, 0)
+        gridLayout.addWidget(self.durationSlider, 3, 1)
+        gridLayout.addWidget(self.durationSpinBox, 3, 2)
+
+        # Heartbeat Input
+        self.heartbeatLabel = QLabel("Heartbeat (bpm)")
+        self.heartbeatSlider = QSlider(Qt.Orientation.Horizontal)
+        self.heartbeatSpinBox = QSpinBox()
+        self.heartbeatSlider.setMinimum(40)
+        self.heartbeatSlider.setMaximum(200)
+        self.heartbeatSpinBox.setMinimum(40)
+        self.heartbeatSpinBox.setMaximum(200)
+        self.heartbeatSlider.valueChanged.connect(self.heartbeatSpinBox.setValue)
+        self.heartbeatSpinBox.valueChanged.connect(self.heartbeatSlider.setValue)
+        gridLayout.addWidget(self.heartbeatLabel, 4, 0)
+        gridLayout.addWidget(self.heartbeatSlider, 4, 1)
+        gridLayout.addWidget(self.heartbeatSpinBox, 4, 2)
+
+        # Predict Button - Custom Animation Needed
+        self.predictButton = QPushButton("Predict Calories")
+        gridLayout.addWidget(self.predictButton, 5, 0, 1, 3)  # Span across three columns
+        self.predictButton.clicked.connect(self.predictCalories)
+
+
