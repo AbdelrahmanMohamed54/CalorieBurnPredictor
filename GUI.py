@@ -157,3 +157,30 @@ class CaloriesPredictor(QMainWindow):
             self.setStyleSheet(self.darkStyleSheet)
         elif theme == "High Contrast":
             self.setStyleSheet(self.highContrastStyleSheet)
+
+    def predictCalories(self):
+        # Collect input data
+        gender = self.genderComboBox.currentText()
+        gender = 0 if gender == 'Male' else 1
+        weight = self.weightSpinBox.value()
+        height = self.heightSpinBox.value()
+        duration = self.durationSpinBox.value()
+        Heart_Rate = self.heartbeatSpinBox.value()
+
+
+        # Prepare input data for the model
+        input_data = {'Gender': gender, 'Height': height, 'Weight': weight, 'Duration': duration,
+                      'Heart_Rate': Heart_Rate}
+
+        # Predict calories
+        duration = self.durationSpinBox.value()  # get duration from the spin box
+        predicted_calories = self.model.predict(input_data)
+
+        # Update the label with the prediction
+        self.predictionResultLabel.setText(f"Predicted Calories: {predicted_calories:.2f}")
+
+        # Print the prediction in the console
+        print(f"Predicted Calories: {predicted_calories}")
+
+        # Update the graph with the prediction
+        self.updateGraph(duration, predicted_calories)
