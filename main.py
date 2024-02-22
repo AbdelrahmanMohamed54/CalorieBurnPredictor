@@ -91,3 +91,23 @@ plt.title('Tuned Decision Tree: Feature Importance')
 plt.xlabel('Importance')
 plt.ylabel('Feature')
 plt.show()
+
+"""
+Evaluation of Mean Absolute Error and some data processing
+"""
+
+# Evaluation Metrics for Tuned Decision Tree
+dt_mae_tuned = mean_absolute_error(Y_test, dt_pred_tuned)
+dt_mse_tuned = mean_squared_error(Y_test, dt_pred_tuned)
+dt_rmse_tuned = np.sqrt(dt_mse_tuned)
+dt_r2_tuned = r2_score(Y_test, dt_pred_tuned)
+
+# Print Results for Tuned Decision Tree
+print("\nTuned Decision Tree Metrics:")
+print("Mean Absolute Error:", dt_mae_tuned)
+print("Mean Squared Error:", dt_mse_tuned)
+print("Root Mean Squared Error:", dt_rmse_tuned)
+print("R-squared:", dt_r2_tuned)
+
+# Save the tuned model to a file
+joblib.dump(best_decision_tree_model, 'calories_tuned_model.pkl')
