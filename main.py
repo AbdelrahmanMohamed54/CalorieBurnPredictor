@@ -39,6 +39,15 @@ features_to_use = ['Gender', 'Height', 'Weight', 'Duration', 'Heart_Rate', 'Weig
 X = calories_data[features_to_use]
 Y = calories_data['Calories']
 
+"""
+Feature engineering
+Split the data training and test
+"""
+
+X_train, X_test, Y_train, Y_test=train_test_split(X,Y, test_size=0.2, random_state=2)
+
+print(X.shape, X_train.shape, X_test.shape)
+
 print(X)
 
 print(Y)
